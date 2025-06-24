@@ -194,7 +194,24 @@ RUN /app/docker/apt-install.sh \
       libsasl2-modules-gssapi-mit \
       libpq-dev \
       libecpg-dev \
-      libldap2-dev
+      libldap2-dev \
+      gcc \
+      unzip \
+      wget \
+      libaio1
+
+
+RUN mkdir -p /opt/oracle \
+ && cd /opt/oracle \
+ && wget https://download.oracle.com/otn_software/linux/instantclient/2380000/instantclient-basic-linux.x64-23.8.0.25.04.zip \
+ && unzip instantclient-basic-linux.x64-23.8.0.25.04.zip \
+ && rm instantclient-basic-linux.x64-23.8.0.25.04.zip \
+ && ln -s /opt/oracle/instantclient_23_8 /opt/oracle/instantclient \
+ && echo /opt/oracle/instantclient > /etc/ld.so.conf.d/oracle-instantclient.conf \
+ && ldconfig
+
+# Instalar cx_Oracle
+RUN pip install cx_Oracle==8.3
 
 # Copy compiled things from previous stages
 COPY --from=superset-node /app/superset/static/assets superset/static/assets
