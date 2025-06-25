@@ -126,6 +126,23 @@ class Api(BaseSupersetView):
             error_msg = {"message": _("Unexpected time range: %(error)s", error=error)}
             return self.json_response(error_msg, 400)
 
+    @api
+    @handle_api_exception
+    @has_access_api
+    @expose("/v1/database/<int:db_id>/function_names/", methods=("GET",))
+    def get_function_names(self, db_id: int) -> FlaskResponse:
+        """
+        Get the list of function names for a specific database.
+        :param db_id: ID of the database
+        """
+        try:
+            # Query the database for function names (replace with actual logic)
+            function_names = ["function1", "function2", "function3"]  # Example data
+
+            return self.json_response({"function_names": function_names})
+        except Exception as ex:
+            return self.json_response({"error": str(ex)}, 500)
+
     def get_query_context_factory(self) -> QueryContextFactory:
         if self.query_context_factory is None:
             # pylint: disable=import-outside-toplevel
