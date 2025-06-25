@@ -129,11 +129,11 @@ class Api(BaseSupersetView):
     @api
     @handle_api_exception
     @has_access_api
-    @expose("/v1/database/<int:db_id>/function_names/", methods=("GET",))
-    def get_function_names(self, db_id: int) -> FlaskResponse:
+    @expose("/v1/database/<db_id>/function_names/", methods=("GET",))
+    def get_function_names(self, db_id: str) -> FlaskResponse:
         """
         Get the list of function names for a specific database.
-        :param db_id: ID of the database
+        :param db_id: ID of the database (string)
         """
         try:
             # Query the database for function names (replace with actual logic)
