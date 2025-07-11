@@ -7,12 +7,12 @@ RUN apt-get update && \
     apt-get install -y libaio1 unzip wget && \
     mkdir -p /opt/oracle && \
     cd /opt/oracle && \
-    wget https://download.oracle.com/otn_software/linux/instantclient/instantclient-basiclite-linux.x64-21.13.0.0.0dbru.zip && \
-    wget https://download.oracle.com/otn_software/linux/instantclient/instantclient-sdk-linux.x64-21.13.0.0.0dbru.zip && \
-    unzip instantclient-basiclite-linux.x64-21.13.0.0.0dbru.zip && \
-    unzip instantclient-sdk-linux.x64-21.13.0.0.0dbru.zip && \
+    wget https://download.oracle.com/otn_software/linux/instantclient/2380000/instantclient-basiclite-linux.x64-23.8.0.25.04.zip && \
+    wget https://download.oracle.com/otn_software/linux/instantclient/2380000/instantclient-sdk-linux.x64-23.8.0.25.04.zip && \
+    unzip instantclient-basiclite-linux.x64-23.8.0.25.04.zip && \
+    unzip instantclient-sdk-linux.x64-23.8.0.25.04.zip && \
     rm *.zip && \
-    ln -s /opt/oracle/instantclient_21_13 /opt/oracle/instantclient && \
+    ln -s /opt/oracle/instantclient_23_8 /opt/oracle/instantclient && \
     echo /opt/oracle/instantclient > /etc/ld.so.conf.d/oracle-instantclient.conf && \
     ldconfig
 
