@@ -2,21 +2,22 @@ FROM apache/superset:latest
 
 USER root
 
+# Instalar dependencias
+RUN apt-get update && apt-get install -y libaio1 unzip && \
+    mkdir -p /opt/oracle
+
+# Copiar zips desde el host al contenedor
+COPY oracle_pkgs/*.zip /opt/oracle/
+WORKDIR /opt/oracle
+
 # Instalar Oracle Instant Client
-RUN apt-get update && \
-    apt-get install -y libaio1 unzip wget && \
-    mkdir -p /opt/oracle && \
-    cd /opt/oracle && \
-    wget https://download.oracle.com/otn_software/linux/instantclient/2380000/instantclient-basiclite-linux.x64-23.8.0.25.04.zip && \
-    wget https://download.oracle.com/otn_software/linux/instantclient/2380000/instantclient-sdk-linux.x64-23.8.0.25.04.zip && \
-    unzip instantclient-basiclite-linux.x64-23.8.0.25.04.zip && \
+RUN unzip instantclient-basiclite-linux.x64-23.8.0.25.04.zip && \
     unzip instantclient-sdk-linux.x64-23.8.0.25.04.zip && \
     rm *.zip && \
     ln -s /opt/oracle/instantclient_23_8 /opt/oracle/instantclient && \
     echo /opt/oracle/instantclient > /etc/ld.so.conf.d/oracle-instantclient.conf && \
     ldconfig
 
-# Instalar driver Oracle
 ENV LD_LIBRARY_PATH=/opt/oracle/instantclient
 RUN pip install oracledb
 
