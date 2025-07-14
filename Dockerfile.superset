@@ -22,3 +22,5 @@ RUN mkdir -p /opt/oracle \
 # Instalar cx_Oracle
 RUN pip install cx_Oracle==8.3
 RUN pip install oracledb
+
+user superset
