@@ -3,7 +3,7 @@ FROM apache/superset:latest
 USER root
 
 # Instalar dependencias
-RUN apt-get update && apt-get install -y libaio1 unzip && \
+RUN apt-get update && apt-get install -y libaio1 unzip gcc wget && \
     mkdir -p /opt/oracle
 
 # Copiar zips desde el host al contenedor
@@ -22,3 +22,15 @@ ENV LD_LIBRARY_PATH=/opt/oracle/instantclient
 RUN pip install oracledb
 
 USER superset
+
+RUN mkdir -p /opt/oracle \
+ && cd /opt/oracle \
+ && wget https://download.oracle.com/otn_software/linux/instantclient/2380000/instantclient-basic-linux.x64-23.8.0.25.04.zip \
+ && unzip instantclient-basic-linux.x64-23.8.0.25.04.zip \
+ && rm instantclient-basic-linux.x64-23.8.0.25.04.zip \
+ && ln -s /opt/oracle/instantclient_23_8 /opt/oracle/instantclient \
+ && echo /opt/oracle/instantclient > /etc/ld.so.conf.d/oracle-instantclient.conf \
+ && ldconfig
+
+# Instalar cx_Oracle
+RUN pip install cx_Oracle==8.3
