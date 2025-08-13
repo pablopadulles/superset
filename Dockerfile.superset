@@ -6,8 +6,6 @@ USER root
 RUN apt-get update && apt-get install -y libaio1 unzip gcc wget && \
     mkdir -p /opt/oracle
 
-# Copiar zips desde el host al contenedor
-COPY oracle_pkgs/*.zip /opt/oracle/
 WORKDIR /opt/oracle
 
 RUN mkdir -p /opt/oracle \
