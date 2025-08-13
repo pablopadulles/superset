@@ -10,21 +10,9 @@ services:
       - "8088:8088"
     environment:
       - SUPERSET_SECRET_KEY=supersecretkey
+      - SUPERSET_DATABASE_URI=postgresql+psycopg2://superset:Sup3rs3t@10.5.0.124:5432/superset
     volumes:
       - superset_home:/app/superset_home
-    depends_on:
-      - superset_db
-
-  superset_db:
-    image: postgres:15
-    container_name: superset_db
-    environment:
-      POSTGRES_DB: superset
-      POSTGRES_USER: superset
-      POSTGRES_PASSWORD: superset
-    volumes:
-      - superset_db:/var/lib/postgresql/data
 
 volumes:
-  superset_db:
   superset_home:
