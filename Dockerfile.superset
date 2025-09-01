@@ -3,7 +3,7 @@ FROM apache/superset:latest
 USER root
 
 # Instalar dependencias
-RUN apt-get update && apt-get install -y libaio1 unzip gcc wget && \
+RUN apt-get update && apt-get install -y libaio1 unzip gcc wget postgresql-client && \
     mkdir -p /opt/oracle
 
 WORKDIR /opt/oracle
