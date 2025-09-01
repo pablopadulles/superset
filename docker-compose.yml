@@ -10,10 +10,11 @@ services:
       - "8088:8088"
     environment:
       - SUPERSET_SECRET_KEY=supersecretkey
-      - SUPERSET_DATABASE_URI=postgresql+psycopg2://superset:Sup3rs3t@10.5.0.124:5432/superset
-      - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://superset:Sup3rs3t@10.5.0.124:5432/superset
+      # - SUPERSET_DATABASE_URI=postgresql+psycopg2://superset:Sup3rs3t@10.5.0.124:5432/superset
+      # - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://superset:Sup3rs3t@10.5.0.124:5432/superset
     volumes:
       - superset_home:/app/superset_home
+      
 
 volumes:
   superset_home:
